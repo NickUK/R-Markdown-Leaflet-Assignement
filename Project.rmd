@@ -1,0 +1,35 @@
+---
+title: "Leaflet Example"
+author: "Nick Horne"
+date: "27 July 2018"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+library(leaflet, quietly=T)
+```
+
+## Leaflet example
+
+An example using leaflet for the coursera R Markdown and Leaflet assignment. Using the quakes dataset as it contains locational data and is included in R
+
+```{r echo=FALSE}
+warningIcon <- makeIcon(
+  iconUrl = "warning.ico",
+  iconWidth = 40, iconHeight = 40
+)
+
+map <- leaflet(data = quakes[1:100,]) %>%
+        addTiles() %>%
+        addMarkers(~long, 
+                    ~lat, 
+                   popup = ~as.character(mag), 
+                   clusterOptions = markerClusterOptions(),
+                   icon = warningIcon)
+
+map
+```
